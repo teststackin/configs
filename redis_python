@@ -1,0 +1,23 @@
+sample website  dns name lamp9.test.com  , so create key value  like  lamp9_service_be1_v1.edc.lxd = "10.12.135.122" , 
+
+the naming convention :: 
+first = DNS name prefix lamp9 , subdomain name
+second = constant as service
+Third = be1,be2,be3 etc
+Fourth = v1,v2,v3   - depending upon image revision , so you can track versions
+suffix =  .edc.lxd
+
+#### change redis ip address & port accordingly
+
+import redis
+r = redis.Redis(host='172.17.0.3',port=6379,db=0)  
+r.set('lamp9_service_be1_v1.edc.lxd','10.12.135.122')
+r.set('lamp9_service_be2_v1.edc.lxd','10.12.135.123')
+r.set('lamp9_service_be3_v1.edc.lxd','10.12.135.124')
+r.set('lamp9_service_be4_v1.edc.lxd','10.12.135.125')
+r.get('lamp9_service_be1_v1.edc.lxd')
+
+
+for be_list in r.scan_iter(match='lamp9_service_be*'):
+  print(be_list)
+  r.get(be_list)
