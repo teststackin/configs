@@ -1,0 +1,30 @@
+cat requirements.txt
+terminado
+tornado
+tornado-xstatic
+XStatic
+XStatic-term.js
+
+pip install -r requirements.txt
+cd /root/
+git clone https://github.com/jupyter/terminado.git
+cd /root/terminado/demos
+vi single.py ### update localhost to ipaddress at 2 places, & port must be open
+
+python  single.py
+
+refer url 
+
+https://github.com/jupyter/terminado/tree/master/demos
+
+
+
+
+lxc config set core.proxy_http http://proxy_address:port
+lxc config set core.proxy_https http://proxy_address:port
+lxc launch ubuntu:18.04 testa --debug
+
+
+lxc config edit ## to delete  http proxy
+
+
