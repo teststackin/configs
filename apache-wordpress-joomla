@@ -832,3 +832,29 @@ apt install moosefs-client -y
 ##############################################################################################
 
 wordpressmysqldb20novimage | 57d83c22e9d6
+
+
+
+##############################################################################################
+
+
+launch a container with haproxy & dataplane api running over port 5000
+
+service-service3-haproxy
+
+now update haproxy with tcp lb details , tcp fe port  , be ports
+
+haproxy - tcp must publish a new fe port for every lb  cluster
+
+
+apt-get install software-properties-common
+add-apt-repository ppa:vbernat/haproxy-2.0
+apt-get update
+apt-get install haproxy=2.0.\*  -y
+
+
+
+
+
+
+
