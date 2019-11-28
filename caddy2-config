@@ -1,0 +1,120 @@
+{
+	"apps": {
+		"http": {
+			"servers": {
+				"myserver": {
+					"listen": [":443"],
+					"routes": [{
+						"match": [{
+							"host": ["example.com"]
+						}],
+						"handle": [{
+							"handler": "subroute",
+							"routes": [{
+								"handle": [{
+									"handler": "subroute",
+									"routes": [{
+											"handle": [{
+												"handler": "reverse_proxy",
+												"transport": {
+													"protocol": "http"
+												},
+												"upstreams": [{
+														"dial": "10.1.234.159:80"
+													},
+													{
+														"dial": "10.1.234.149:80",
+														"max_requests": 1000
+													},
+													{
+														"dial": "10.1.234.134:80"
+													}
+												]
+											}],
+											"match": [{
+												"path": [
+													"*"
+												]
+											}]
+										}
+
+									]
+								}]
+							}]
+						}]
+					}]
+				}
+			}
+		}
+	}
+}
+
+####################################################################################################
+
+{
+	"apps": {
+		"http": {
+			"servers": {
+				"myserver": {
+					"listen": [":443"],
+					"routes": [{
+						"match": [{
+							"host": ["ttldrive.com"]
+						}],
+						"handle": [{
+							"handler": "subroute",
+							"routes": [{
+								"handle": [{
+									"handler": "subroute",
+									"routes": [{
+											"handle": [{
+												"handler": "rewrite",
+												"rehandle": true,
+												"uri": "{http.request.scheme}{http.matchers.file.relative}{http.request.uri.query_string}"
+											}],
+											"match": [{
+												"file": {
+													"try_files": [
+														"{http.request.uri.path}",
+														"index.html"
+													]
+												}
+											}]
+										},
+
+										{
+											"handle": [{
+												"handler": "reverse_proxy",
+												"transport": {
+													"protocol": "http"
+												},
+												"upstreams": [{
+														"dial": "10.1.234.159:80"
+													},
+													{
+														"dial": "10.1.234.149:80",
+														"max_requests": 1000
+													},
+													{
+														"dial": "10.1.234.134:80"
+													}
+												]
+											}],
+											"match": [{
+												"path": [
+													"*"
+												]
+											}]
+										}
+
+									]
+								}]
+							}]
+						}]
+					}]
+				}
+			}
+		}
+	}
+}
+
