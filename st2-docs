@@ -1,0 +1,32 @@
+
+StackStorm is a platform for integration and automation across services and tools. It ties together your existing 
+infrastructure and application environment so you can more easily automate that environment.
+
+
+StackStorm helps you compose these and other operational patterns as rules and workflows or actions. These rules and workflows -
+the content within the StackStorm platform - are stored as code which means they support the same approach to collaboration that 
+you use today for code development.
+
+StackStorm plugs into the environment via the extensible set of adapters containing sensors and actions.
+
+##Sensors are Python plugins for either inbound or outbound integration that receives or watches for events respectively. 
+When an event from external systems occurs and is processed by a sensor, a StackStorm trigger will be emitted into the system.
+
+
+##Triggers are StackStorm representations of external events. There are generic triggers (e.g. timers, webhooks) and integration 
+triggers (e.g. Sensu alert, JIRA issue updated). A new trigger type can be defined by writing a sensor plugin.
+
+##Actions are StackStorm outbound integrations. There are generic actions (ssh, REST call), integrations (OpenStack, Docker, Puppet), 
+or custom actions. Actions are either Python plugins, or any scripts, consumed into StackStorm by adding a few lines of metadata. 
+Actions can be invoked directly by user via CLI or API, or used and called as part of rules and workflows.
+
+##Rules map triggers to actions (or to workflows), applying matching criteria and mapping trigger payload to action inputs.
+
+##Workflows stitch actions together into “uber-actions”, defining the order, transition conditions, and passing the data. 
+Most automations are more than one-step and thus need more than one action. Workflows, just like “atomic” actions, are available 
+in the Action library, and can be invoked manually or triggered by rules.
+
+##Packs are the units of content deployment. They simplify the management and sharing of StackStorm pluggable content by 
+grouping integrations (triggers and actions) and automations (rules and workflows). A growing number of packs are available on 
+StackStorm Exchange. Users can create their own packs, share them on Github, or submit to the StackStorm Exchange.
+
