@@ -85,3 +85,56 @@ reverse_proxy localhost:8080
 }
 
 #######################################################################################################
+
+{
+        "apps": {
+                "http": {
+                        "servers": {
+                                "example": {
+                                        "listen": [":80"],
+                                        "routes": [
+                                                {
+                                                        "match": [{
+                                                        "host": ["example.com","testme.example.com","testmenow.example.com"]
+                                                         }],
+
+                                                        "handle": [{
+                                                                "handler": "subroute",
+                                                                        "routes": [{
+                                                                                        "handle": [{
+                                                                                                "handler": "reverse_proxy",
+                                                                                                "transport": {
+                                                                                                        "protocol": "http"
+                                                                                                },
+                                                                                                "upstreams": [{
+                                                                                                                "dial": "172.18.0.2:80"
+                                                                                                        },
+                                                                                                        {
+                                                                                                                "dial": "172.18.0.2:80",
+                                                                                                                "max_requests": 1000
+                                                                                                        },
+                                                                                                        {
+                                                                                                                "dial": "172.18.0.2:80"
+                                                                                                        }
+                                                                                                ]
+                                                                                        }],
+                                                                                        "match": [{
+                                                                                                "path": [
+                                                                                                        "*"
+                                                                                                ]
+                                                                                        }]
+                                                                                }
+
+                                                                        ]
+
+
+                                                        }]
+                                                }
+                                        ]
+                                }
+                        }
+                }
+        }
+}
+
+###############################################################################################################
